@@ -10,22 +10,22 @@ type queue struct {
 func main() {
 	my_queue := queue{[]string{}, 0}
 
-	my_queue.push("wagner")
+	my_queue.enqueue("wagner")
 	fmt.Println("Push in queue:", my_queue)
 
-	my_queue.push("sonny boy")
+	my_queue.enqueue("sonny boy")
 	fmt.Println("Push in queue:", my_queue)
 
-	pop_in_queue := my_queue.pop()
+	pop_in_queue := my_queue.dequeue()
 	fmt.Println("Pop in queue:", my_queue, "Value removed:", pop_in_queue)
 }
 
-func (q *queue) push(value string) {
+func (q *queue) enqueue(value string) {
 	q.values = append(q.values, value)
 	q.len++
 }
 
-func (q *queue) pop() string {
+func (q *queue) dequeue() string {
 	if q.empty() {
 		panic("This queue is empty!")
 	} else {
