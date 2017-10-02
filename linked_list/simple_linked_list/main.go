@@ -9,7 +9,6 @@ type node struct {
 
 type linkedList struct {
 	first node
-	last node
 	len int
 }
 
@@ -37,37 +36,37 @@ func main() {
 	my_linked_list := linkedList{}
 	fmt.Println("Init my linked list:", my_linked_list)
 
-	my_linked_list.push("Symbols", 0)
+	my_linked_list.add("Symbols", 0)
 	fmt.Println("Add first node:", my_linked_list)
-	fmt.Println("First:", my_linked_list.first, "Last:", my_linked_list.last, "Lenght:", my_linked_list.len)
+	fmt.Println("First:", my_linked_list.first, "Lenght:", my_linked_list.len)
 
 	fmt.Println("-----------")
 
-	my_linked_list.push("Angra", 0)
+	my_linked_list.add("Angra", 0)
 	fmt.Println("Add second node:", my_linked_list)
-	fmt.Println("First:", my_linked_list.first, "Last:", my_linked_list.last, "Lenght:", my_linked_list.len)
+	fmt.Println("First:", my_linked_list.first, "Lenght:", my_linked_list.len)
 	fmt.Println("Get next:", my_linked_list.first.getNext())
 
 	fmt.Println("-----------")
 
-	my_linked_list.push("Guns n' Roses", 2)
+	my_linked_list.add("Guns n' Roses", 2)
 	fmt.Println("Add third node:", my_linked_list)
-	fmt.Println("First:", my_linked_list.first, "Last:", my_linked_list.last, "Lenght:", my_linked_list.len)
+	fmt.Println("First:", my_linked_list.first, "Lenght:", my_linked_list.len)
 	fmt.Println("Get next:", my_linked_list.first.getNext())
 
 	fmt.Println("-----------")
 
-	my_linked_list.push("Helloween", 2)
+	my_linked_list.add("Helloween", 2)
 	fmt.Println("Add fourth node:", my_linked_list)
-	fmt.Println("First:", my_linked_list.first, "Last:", my_linked_list.last, "Lenght:", my_linked_list.len)
+	fmt.Println("First:", my_linked_list.first, "Lenght:", my_linked_list.len)
 
 	my_linked_list.show()
 
 	fmt.Println("-----------")
 
-	my_linked_list.pop(2)
+	my_linked_list.remove(2)
 	fmt.Println("Remove first node:", my_linked_list)
-	fmt.Println("First:", my_linked_list.first, "Last:", my_linked_list.last, "Lenght:", my_linked_list.len)
+	fmt.Println("First:", my_linked_list.first, "Lenght:", my_linked_list.len)
 
 	my_linked_list.show()
 }
@@ -92,22 +91,18 @@ func (n *node) setNext(value node) {
 	n.next = &value
 }
 
-func (list *linkedList) push(label string, index int) {
+func (list *linkedList) add(label string, index int) {
 
 	if index >= 0 {
 		list_node := node{label, nil}
 
 		if	list.empty() {
 			list.first = list_node
-			list.last = list_node
 		} else {
 			if index == 0 {
 				// insert in first
 				list_node.setNext(list.first)
 				list.first = list_node
-			} else if index >= list.len {
-				list.last.setNext(list_node)
-				list.last = list_node
 			} else {
 				prev_node := list.first
 				curr_node := list.first.getNext()
@@ -129,17 +124,15 @@ func (list *linkedList) push(label string, index int) {
 		}
 		list.len++
 	}
-
 }
 
-func (list linkedList) pop(index int) {
+func (list linkedList) remove(index int) {
 
 	if !list.empty() && index >= 0 && index < list.len {
 		flag_remove := false
 
 		if list.first.next == nil {
 			list.first = node{}
-			list.last = node{}
 			flag_remove = true
 		} else if index == 0 {
 			list.first = list.first.getNext()
